@@ -27,6 +27,12 @@ describe("calculateScore", () => {
     expect(calculateScore(baseRule, learner).value).toBe(30);
   });
 
+  it("lets a strong extra subject replace the weakest one", () => {
+    const withExtra = [...learner, { name: "Accounting", mark: 85 }];
+    // Accounting (7) replaces Geography (3)
+    expect(calculateScore(baseRule, withExtra).value).toBe(30 - 3 + 7);
+  });
+
   it("only counts the best N subjects", () => {
     const result = calculateScore({ ...baseRule, subjectsCounted: 4 }, learner);
     expect(result.value).toBe(7 + 6 + 5 + 5);

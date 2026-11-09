@@ -10,16 +10,21 @@ import {
   LIFE_ORIENTATION,
   mathsSubjects,
   provinces,
+  secondAdditionalLanguages,
+  subjectCombinationProblems,
 } from "@/data/subjects";
 import type { Field, Province, StudentSubject } from "@/data/types";
 import { formatScore, statusMeta } from "@/lib/format";
 import { matchAll, type MatchStatus } from "@/lib/matching";
 import { calculateScore } from "@/lib/scoring";
-import { Calculator, ChevronDown, CircleAlert, RotateCcw, Sparkles } from "lucide-react";
+import { Calculator, ChevronDown, CircleAlert, Plus, RotateCcw, Sparkles, X } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import { MatchCard } from "./match-card";
 
-type Slot = { id: string; label: string; options: string[]; name: string; mark: string };
+type Slot = { id: string; label: string; options: string[]; name: string; mark: string; extra?: boolean };
+
+const MAX_EXTRA_SUBJECTS = 3;
+const extraOptions = [...electives, ...secondAdditionalLanguages];
 
 export type InitialValues = {
   field?: string;
@@ -51,14 +56,12 @@ function validate(slots: Slot[]) {
   if (slots.some((slot) => slot.mark !== "" && (Number(slot.mark) < 0 || Number(slot.mark) > 100))) {
     problems.push("Marks must be between 0 and 100.");
   }
-  const languageOf = (name: string) => name.split(" ")[0];
-  const home = slots.find((slot) => slot.id === "home");
-  const fal = slots.find((slot) => slot.id === "fal");
-  if (home && fal && languageOf(home.name) === languageOf(fal.name)) {
-    problems.push("Your home language and first additional language must be different.");
-  }
-  const electiveNames = slots.filter((slot) => slot.id.startsWith("elective")).map((slot) => slot.name);
-  if (new Set(electiveNames).size !== electiveNames.length) problems.push("Pick three different electives.");
+  const languageOf = (name: string) => (name.includes(" Language") ? name.split(" ")[0] : null);
+  const languages = slots.map((slot) => languageOf(slot.name)).filter((language) => language !== null);
+  if (new Set(languages).size !== languages.length) problems.push("Each language can only be taken once.");
+  const names = slots.map((slot) => slot.name);
+  if (new Set(names).size !== names.length) problems.push("Each subject can only be added once.");
+  problems.push(...subjectCombinationProblems(slots.map((slot) => slot.name)));
   return problems;
 }
 
@@ -93,6 +96,34 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
 
   function updateSlot(id: string, update: Partial<Slot>) {
     setSlots((current) => current.map((slot) => (slot.id === id ? { ...slot, ...update } : slot)));
+    setSubmitted(false);
+  }
+
+  const extraCount = slots.filter((slot) => slot.extra).length;
+
+  function addSubject() {
+    setSlots((current) => {
+      const names = current.map((slot) => slot.name);
+      const taken = new Set(names);
+      const isValidChoice = (option: string) => !taken.has(option) && subjectCombinationProblems([...names, option]).length === 0;
+      const next = Math.max(0, ...current.filter((slot) => slot.extra).map((slot) => Number(slot.id.split("-")[1]))) + 1;
+      return [
+        ...current,
+        {
+          id: `extra-${next}`,
+          label: "Extra subject",
+          options: extraOptions,
+          name: extraOptions.find(isValidChoice) ?? extraOptions[0],
+          mark: "",
+          extra: true,
+        },
+      ];
+    });
+    setSubmitted(false);
+  }
+
+  function removeSubject(id: string) {
+    setSlots((current) => current.filter((slot) => slot.id !== id));
     setSubmitted(false);
   }
 
@@ -148,7 +179,7 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
 
           <div className="mt-5 space-y-3">
             {slots.map((slot) => (
-              <div key={slot.id} className="grid grid-cols-[1fr_92px] items-end gap-3">
+              <div key={slot.id} className={`grid items-end gap-3 ${slot.extra ? "grid-cols-[1fr_92px_48px]" : "grid-cols-[1fr_92px]"}`}>
                 <label className="min-w-0">
                   <span className="mb-1 block text-[11px] font-extrabold uppercase tracking-wider text-slate-400">{slot.label}</span>
                   <span className="relative block">
@@ -177,9 +208,36 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
                   />
                   <span className="pointer-events-none absolute right-3 top-3.5 text-sm font-bold text-slate-400">%</span>
                 </label>
+                {slot.extra && (
+                  <button
+                    type="button"
+                    onClick={() => removeSubject(slot.id)}
+                    aria-label={`Remove ${slot.name}`}
+                    className="grid h-12 place-items-center rounded-xl border border-slate-200 text-slate-400 transition hover:border-rose-300 hover:bg-rose-50 hover:text-rose-600 dark:border-white/10 dark:hover:bg-rose-500/10"
+                  >
+                    <X size={18} />
+                  </button>
+                )}
               </div>
             ))}
           </div>
+
+          {extraCount < MAX_EXTRA_SUBJECTS ? (
+            <button
+              type="button"
+              onClick={addSubject}
+              className="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-violet-200 text-sm font-extrabold text-violet-600 transition hover:border-violet-400 hover:bg-violet-50 dark:border-violet-500/30 dark:text-violet-300 dark:hover:bg-violet-500/10"
+            >
+              <Plus size={18} /> Add another subject
+            </button>
+          ) : (
+            <p className="mt-3 text-center text-xs font-semibold text-slate-400">You can add up to {MAX_EXTRA_SUBJECTS} extra subjects.</p>
+          )}
+          {extraCount > 0 && (
+            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+              ✨ Extra subjects can boost your score: each university counts your best subjects.
+            </p>
+          )}
 
           {problems.length > 0 && (
             <div role="alert" className="mt-5 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm font-semibold text-rose-800 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-200">
