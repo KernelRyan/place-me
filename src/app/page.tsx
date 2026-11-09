@@ -1,32 +1,22 @@
-"use client";
+﻿"use client";
 
 import { AppHeader } from "@/components/app-header";
+import { QuickMatch } from "@/components/quick-match";
 import { UniversityBadge } from "@/components/university-badge";
 import { universities } from "@/data/catalogue";
-import { fields, provinces } from "@/data/subjects";
 import Link from "next/link";
 import {
   ArrowRight,
-  BadgeCheck,
   BookOpen,
   CalendarDays,
   Check,
-  ChevronDown,
-  CircleUserRound,
   GraduationCap,
-  MapPin,
   Search,
   SlidersHorizontal,
   Sparkles,
   TrendingUp,
   WalletCards,
 } from "lucide-react";
-
-const subjects = [
-  { name: "Mathematics", mark: "76%" },
-  { name: "English", mark: "72%" },
-  { name: "Physical Sciences", mark: "68%" },
-];
 
 const shortName = (name: string) => name.replace("University of the ", "").replace("University of ", "").replace(" University", "");
 
@@ -73,7 +63,7 @@ export default function Home() {
             <div className="colour-orb absolute right-[8%] top-28 size-20 rounded-[2rem] bg-gradient-to-br from-amber-300 to-orange-400 opacity-70 shadow-2xl shadow-orange-200" />
             <div className="colour-orb-delayed absolute bottom-24 left-[4%] size-14 rotate-12 rounded-2xl bg-gradient-to-br from-sky-400 to-cyan-300 opacity-60 shadow-xl shadow-sky-200" />
             <span className="floating-card absolute left-[7%] top-14 hidden rotate-[-12deg] text-4xl lg:block" aria-hidden="true">🎯</span>
-            <span className="floating-card-delayed absolute right-[5%] top-[45%] hidden rotate-12 text-5xl lg:block" aria-hidden="true">🚀</span>
+            <span className="floating-card-delayed absolute right-[14%] top-6 hidden rotate-12 text-5xl lg:block" aria-hidden="true">🚀</span>
           </div>
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[1.02fr_.98fr] lg:py-28">
@@ -111,80 +101,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative mx-auto w-full max-w-xl lg:mx-0">
-              <div className="floating-card absolute -left-10 top-16 hidden rounded-2xl border border-white bg-white/90 p-4 shadow-xl shadow-slate-200/60 backdrop-blur md:block dark:border-white/10 dark:bg-slate-900/90 dark:shadow-black/20">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-10 place-items-center rounded-xl bg-emerald-100 text-emerald-600"><BadgeCheck size={22} /></span>
-                  <div><p className="text-xs font-bold text-slate-400">Strong match</p><p className="text-sm font-extrabold">BSc Computer Science</p></div>
-                </div>
-              </div>
-              <div className="floating-card-delayed absolute -right-8 bottom-14 z-20 hidden rounded-2xl border border-white bg-white/90 p-4 shadow-xl shadow-slate-200/60 backdrop-blur md:block dark:border-white/10 dark:bg-slate-900/90 dark:shadow-black/20">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-10 place-items-center rounded-xl bg-amber-100 text-amber-600"><CalendarDays size={21} /></span>
-                  <div><p className="text-xs font-bold text-slate-400">Applications close</p><p className="text-sm font-extrabold">30 September</p></div>
-                </div>
-              </div>
-
-              <form action="/match" className="relative rounded-[2rem] border border-white/80 bg-white/90 p-5 shadow-[0_30px_80px_-20px_rgba(76,29,149,.28)] backdrop-blur-xl sm:p-7 dark:border-white/10 dark:bg-slate-900/90">
-                <div className="mb-6 flex items-center justify-between">
-                  <div>
-                    <p className="text-xs font-extrabold uppercase tracking-[.14em] text-violet-600 dark:text-violet-300">Try it now ✨</p>
-                    <h2 className="mt-1 text-xl font-black dark:text-white">What are you dreaming about?</h2>
-                  </div>
-                  <span className="grid size-11 place-items-center rounded-full bg-violet-50 text-violet-600"><CircleUserRound size={23} /></span>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block">
-                    <span className="mb-2 block text-xs font-bold text-slate-600 dark:text-slate-300">I&apos;m interested in</span>
-                    <span className="relative block">
-                      <select name="field" defaultValue="Engineering & Technology" className="h-12 w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 pr-9 text-sm font-semibold text-slate-700 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-slate-800 dark:text-slate-100 dark:focus:ring-violet-500/20">
-                        {["Any field", ...fields].map((field) => <option key={field}>{field}</option>)}
-                      </select>
-                      <ChevronDown size={16} className="pointer-events-none absolute right-3 top-4 text-slate-400" />
-                    </span>
-                  </label>
-                  <label className="block">
-                    <span className="mb-2 block text-xs font-bold text-slate-600 dark:text-slate-300">Where would you like to study?</span>
-                    <span className="relative block">
-                      <MapPin size={15} className="pointer-events-none absolute left-3 top-4 z-10 text-violet-500" />
-                      <select name="province" defaultValue="Gauteng" className="h-12 w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-9 text-sm font-semibold text-slate-700 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-slate-800 dark:text-slate-100 dark:focus:ring-violet-500/20">
-                        {["Any province", ...provinces].map((province) => <option key={province}>{province}</option>)}
-                      </select>
-                      <ChevronDown size={16} className="pointer-events-none absolute right-3 top-4 text-slate-400" />
-                    </span>
-                  </label>
-                </div>
-
-                <div className="mt-5">
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-600 dark:text-slate-300">Add 3 quick marks</span>
-                    <Link href="/match" className="text-xs font-bold text-violet-600 hover:text-violet-800">Add all subjects</Link>
-                  </div>
-                  <div className="space-y-2">
-                    {subjects.map((subject) => (
-                      <div key={subject.name} className="flex items-center justify-between rounded-xl border border-slate-100 px-4 py-3 dark:border-white/10">
-                        <span className="flex items-center gap-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200">
-                          <span className="size-2 rounded-full bg-violet-500" /> {subject.name}
-                        </span>
-                        <input
-                          aria-label={`${subject.name} mark`}
-                          className="w-16 rounded-lg border-0 bg-slate-100 px-2.5 py-1 text-right text-sm font-extrabold text-slate-700 outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-800 dark:text-white"
-                          defaultValue={subject.mark.replace("%", "")}
-                          max="100"
-                          min="0"
-                          name={subject.name.toLowerCase().replaceAll(" ", "-")}
-                          type="number"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <button type="submit" className="mt-5 flex h-13 w-full items-center justify-center gap-2 rounded-xl bg-slate-950 text-sm font-extrabold text-white transition hover:bg-violet-700">
-                  Show me my options <ArrowRight size={17} />
-                </button>
-              </form>
-            </div>
+            <QuickMatch />
           </div>
         </section>
 
