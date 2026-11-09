@@ -126,8 +126,8 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
       <form onSubmit={handleSubmit} className="grid gap-6 lg:grid-cols-[.72fr_1.28fr]">
         <aside className="h-fit rounded-3xl border border-violet-200 bg-gradient-to-br from-violet-600 to-indigo-700 p-6 text-white shadow-xl shadow-violet-200/50">
           <span className="grid size-12 place-items-center rounded-2xl bg-white/15"><Sparkles size={24} /></span>
-          <h2 className="mt-5 text-2xl font-black">Your preferences</h2>
-          <p className="mt-2 text-sm leading-6 text-violet-100">We&apos;ll use these to prioritise useful options.</p>
+          <h2 className="mt-5 text-2xl font-black">First, what do you like?</h2>
+          <p className="mt-2 text-sm leading-6 text-violet-100">No pressure—you can change these choices anytime.</p>
 
           <label className="mt-7 block text-xs font-extrabold uppercase tracking-wider text-violet-100">
             Current grade
@@ -158,11 +158,11 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
           </div>
         </aside>
 
-        <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/50 sm:p-7">
+        <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/50 sm:p-7 dark:border-white/10 dark:bg-slate-900 dark:shadow-black/20">
           <div className="flex flex-col justify-between gap-3 border-b border-slate-100 pb-5 sm:flex-row sm:items-center">
             <div>
-              <h2 className="text-2xl font-black">Your latest results</h2>
-              <p className="mt-1 text-sm text-slate-500">Select each subject and enter a percentage.</p>
+              <h2 className="text-2xl font-black dark:text-white">Next, add your marks 📝</h2>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Use your latest report. It doesn&apos;t need to be perfect!</p>
             </div>
             <span className="w-fit rounded-full bg-amber-100 px-3 py-1.5 text-xs font-extrabold text-amber-800">{grade} results</span>
           </div>
@@ -174,7 +174,7 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
                   aria-label={`Subject ${index + 1}`}
                   value={subject.name}
                   onChange={(event) => updateSubject(index, { name: event.target.value })}
-                  className="h-12 min-w-0 rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-slate-700 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100"
+                  className="h-12 min-w-0 rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-slate-700 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-slate-800 dark:text-slate-100 dark:focus:ring-violet-500/20"
                 >
                   {subjectOptions.map((option) => <option key={option}>{option}</option>)}
                 </select>
@@ -186,7 +186,7 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
                     max="100"
                     value={subject.mark}
                     onChange={(event) => updateSubject(index, { mark: Math.min(100, Math.max(0, Number(event.target.value))) })}
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 pr-7 text-sm font-black text-slate-800 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100"
+                    className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 pr-7 text-sm font-black text-slate-800 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-slate-800 dark:text-white dark:focus:ring-violet-500/20"
                   />
                   <span className="pointer-events-none absolute right-3 top-3.5 text-sm font-bold text-slate-400">%</span>
                 </div>
@@ -217,7 +217,7 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
 
           <div className="mt-7 grid gap-5">
             {matches.map((programme) => (
-              <article key={programme.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+              <article key={programme.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 dark:border-white/10 dark:bg-slate-900">
                 <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
                   <div className="max-w-2xl">
                     <div className="flex flex-wrap items-center gap-2">
@@ -226,8 +226,8 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
                       </span>
                       <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">{programme.qualification}</span>
                     </div>
-                    <h3 className="mt-3 text-xl font-black">{programme.name}</h3>
-                    <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-slate-500"><MapPin size={15} /> {programme.university} · {programme.province}</p>
+                    <h3 className="mt-3 text-xl font-black dark:text-white">{programme.name}</h3>
+                    <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-slate-500 dark:text-slate-400"><MapPin size={15} /> {programme.university} · {programme.province}</p>
                     {!programme.qualifies && programme.pathway && (
                       <p className="mt-3 flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-sm font-semibold text-amber-900">
                         <BookOpenCheck size={17} className="mt-0.5 shrink-0" /> Consider: {programme.pathway}
@@ -235,9 +235,9 @@ export function MatchForm({ initial }: { initial: InitialValues }) {
                     )}
                   </div>
                   <div className="grid min-w-72 gap-2 text-sm">
-                    <span className="flex items-center gap-2 text-slate-600"><BadgeCheck size={16} className="text-violet-500" /> Indicative APS: {programme.minimumAps}</span>
-                    <span className="flex items-center gap-2 text-slate-600"><CalendarDays size={16} className="text-violet-500" /> Closes: {programme.closingDate}</span>
-                    <span className="flex items-center gap-2 text-slate-600"><WalletCards size={16} className="text-violet-500" /> Est. {programme.estimatedAnnualCost}</span>
+                    <span className="flex items-center gap-2 text-slate-600 dark:text-slate-300"><BadgeCheck size={16} className="text-violet-500" /> Indicative APS: {programme.minimumAps}</span>
+                    <span className="flex items-center gap-2 text-slate-600 dark:text-slate-300"><CalendarDays size={16} className="text-violet-500" /> Closes: {programme.closingDate}</span>
+                    <span className="flex items-center gap-2 text-slate-600 dark:text-slate-300"><WalletCards size={16} className="text-violet-500" /> Est. {programme.estimatedAnnualCost}</span>
                     <a href={programme.url} target="_blank" rel="noreferrer" className="mt-2 flex h-11 items-center justify-center gap-2 rounded-xl bg-violet-600 px-4 font-extrabold text-white transition hover:bg-violet-700">
                       View official website <ArrowUpRight size={16} />
                     </a>

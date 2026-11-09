@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #fbfcff;
   --foreground: #0f172a;
+}
+
+.dark {
+  --background: #070b18;
+  --foreground: #f8fafc;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -16,6 +24,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 html {
@@ -33,6 +42,17 @@ a {
     linear-gradient(to bottom, rgb(100 116 139 / 0.06) 1px, transparent 1px);
   background-size: 42px 42px;
   mask-image: linear-gradient(to bottom, black, transparent 92%);
+}
+
+.dark .hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(167 139 250 / 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(167 139 250 / 0.09) 1px, transparent 1px);
+}
+
+.fun-dots {
+  background-image: radial-gradient(circle, rgb(124 58 237 / 0.3) 2px, transparent 2px);
+  background-size: 24px 24px;
 }
 
 @keyframes float {
