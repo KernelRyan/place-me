@@ -1,6 +1,9 @@
 "use client";
 
 import { AppHeader } from "@/components/app-header";
+import { UniversityBadge } from "@/components/university-badge";
+import { universities } from "@/data/catalogue";
+import { fields, provinces } from "@/data/subjects";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -19,42 +22,13 @@ import {
   WalletCards,
 } from "lucide-react";
 
-const fields = [
-  "Engineering & Technology",
-  "Business & Commerce",
-  "Health Sciences",
-  "Law",
-  "Education",
-  "Arts & Humanities",
-];
-
-const provinces = [
-  "Any province",
-  "Eastern Cape",
-  "Free State",
-  "Gauteng",
-  "KwaZulu-Natal",
-  "Limpopo",
-  "Mpumalanga",
-  "North West",
-  "Northern Cape",
-  "Western Cape",
-];
-
 const subjects = [
   { name: "Mathematics", mark: "76%" },
   { name: "English", mark: "72%" },
   { name: "Physical Sciences", mark: "68%" },
 ];
 
-const institutions = [
-  { short: "UCT", name: "Cape Town", style: "from-blue-600 to-cyan-400" },
-  { short: "W", name: "Wits", style: "from-sky-700 to-blue-500" },
-  { short: "UP", name: "Pretoria", style: "from-red-600 to-rose-400" },
-  { short: "SU", name: "Stellenbosch", style: "from-red-800 to-amber-600" },
-  { short: "UJ", name: "Johannesburg", style: "from-orange-500 to-amber-400" },
-  { short: "UKZN", name: "KwaZulu-Natal", style: "from-emerald-600 to-teal-400" },
-];
+const shortName = (name: string) => name.replace("University of the ", "").replace("University of ", "").replace(" University", "");
 
 const benefits = [
   {
@@ -165,7 +139,7 @@ export default function Home() {
                     <span className="mb-2 block text-xs font-bold text-slate-600 dark:text-slate-300">I&apos;m interested in</span>
                     <span className="relative block">
                       <select name="field" defaultValue="Engineering & Technology" className="h-12 w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 pr-9 text-sm font-semibold text-slate-700 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-slate-800 dark:text-slate-100 dark:focus:ring-violet-500/20">
-                        {fields.map((field) => <option key={field}>{field}</option>)}
+                        {["Any field", ...fields].map((field) => <option key={field}>{field}</option>)}
                       </select>
                       <ChevronDown size={16} className="pointer-events-none absolute right-3 top-4 text-slate-400" />
                     </span>
@@ -175,7 +149,7 @@ export default function Home() {
                     <span className="relative block">
                       <MapPin size={15} className="pointer-events-none absolute left-3 top-4 z-10 text-violet-500" />
                       <select name="province" defaultValue="Gauteng" className="h-12 w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-9 text-sm font-semibold text-slate-700 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-slate-800 dark:text-slate-100 dark:focus:ring-violet-500/20">
-                        {provinces.map((province) => <option key={province}>{province}</option>)}
+                        {["Any province", ...provinces].map((province) => <option key={province}>{province}</option>)}
                       </select>
                       <ChevronDown size={16} className="pointer-events-none absolute right-3 top-4 text-slate-400" />
                     </span>
@@ -220,12 +194,12 @@ export default function Home() {
               Discover universities across South Africa 🇿🇦
             </p>
             <div className="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-6">
-              {institutions.map((institution) => (
-                <Link key={institution.name} href="/programmes" className="group flex flex-col items-center gap-2 rounded-2xl border border-slate-100 bg-slate-50 p-3 text-center transition hover:-translate-y-1 hover:border-violet-200 hover:shadow-lg dark:border-white/5 dark:bg-slate-800">
-                  <span className={`grid size-11 place-items-center rounded-xl bg-gradient-to-br ${institution.style} text-xs font-black text-white shadow-md transition group-hover:rotate-[-4deg] group-hover:scale-110`}>
-                    {institution.short}
+              {universities.map((university) => (
+                <Link key={university.id} href={`/programmes?university=${university.id}`} className="group flex flex-col items-center gap-2 rounded-2xl border border-slate-100 bg-slate-50 p-3 text-center transition hover:-translate-y-1 hover:border-violet-200 hover:shadow-lg dark:border-white/5 dark:bg-slate-800">
+                  <span className="transition group-hover:rotate-[-4deg] group-hover:scale-110">
+                    <UniversityBadge university={university} />
                   </span>
-                  <span className="text-[11px] font-extrabold text-slate-600 dark:text-slate-300">{institution.name}</span>
+                  <span className="text-[11px] font-extrabold text-slate-600 dark:text-slate-300">{shortName(university.name)}</span>
                 </Link>
               ))}
             </div>

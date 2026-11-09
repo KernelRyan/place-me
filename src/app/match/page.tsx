@@ -36,9 +36,9 @@ export default async function MatchPage({ searchParams }: MatchPageProps) {
             initial={{
               field: value(params, "field"),
               province: value(params, "province"),
-              mathematics: value(params, "mathematics"),
-              english: value(params, "english"),
-              physicalSciences: value(params, "physical-sciences"),
+              maths: value(params, "mathematics"),
+              homeLanguage: value(params, "english"),
+              science: value(params, "physical-sciences"),
             }}
           />
         </div>

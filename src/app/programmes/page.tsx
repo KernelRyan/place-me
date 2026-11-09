@@ -1,7 +1,9 @@
 import { AppHeader } from "@/components/app-header";
 import { ProgrammeExplorer } from "./programme-explorer";
 
-export default function ProgrammesPage() {
+export default async function ProgrammesPage({ searchParams }: PageProps<"/programmes">) {
+  const { university } = await searchParams;
+
   return (
     <div className="min-h-screen bg-[#fbfcff] pb-24 text-slate-950 transition-colors md:pb-0 dark:bg-slate-950 dark:text-white">
       <AppHeader />
@@ -17,7 +19,7 @@ export default function ProgrammesPage() {
             </p>
           </div>
         </section>
-        <ProgrammeExplorer />
+        <ProgrammeExplorer key={typeof university === "string" ? university : "all"} initialUniversity={typeof university === "string" ? university : undefined} />
       </main>
     </div>
   );
