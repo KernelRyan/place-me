@@ -108,13 +108,13 @@ export default function Home() {
         <section className="border-y border-slate-200 bg-white py-10 dark:border-white/10 dark:bg-slate-900">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <p className="text-center text-xs font-extrabold uppercase tracking-[.18em] text-slate-400">
-              Discover universities across South Africa 🇿🇦
+              Discover universities across South Africa
             </p>
             <div className="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-6">
               {universities.map((university) => (
                 <Link key={university.id} href={`/programmes?university=${university.id}`} className="group flex flex-col items-center gap-2 rounded-2xl border border-slate-100 bg-slate-50 p-3 text-center transition hover:-translate-y-1 hover:border-violet-200 hover:shadow-lg dark:border-white/5 dark:bg-slate-800">
                   <span className="transition group-hover:rotate-[-4deg] group-hover:scale-110">
-                    <UniversityBadge university={university} />
+                    <UniversityBadge university={university} size="lg" />
                   </span>
                   <span className="text-[11px] font-extrabold text-slate-600 dark:text-slate-300">{shortName(university.name)}</span>
                 </Link>

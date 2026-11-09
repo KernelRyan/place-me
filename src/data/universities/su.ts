@@ -19,6 +19,7 @@ export const su: University = {
   province: "Western Cape",
   city: "Stellenbosch",
   badgeGradient: "from-red-800 to-amber-600",
+  logo: "/logos/su.png",
   website: "https://www.su.ac.za",
   applyUrl: "https://www.maties.com",
   applicationFee: 100,

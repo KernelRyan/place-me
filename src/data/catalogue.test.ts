@@ -1,4 +1,6 @@
 import { calculateScore } from "@/lib/scoring";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { programmes, universities } from "./catalogue";
 import { allSubjects } from "./subjects";
@@ -61,6 +63,12 @@ describe("catalogue", () => {
 
     const science = programmes.find((p) => p.id === "uct-bsc-cs")!.scoreRule!;
     expect(calculateScore(science, learner).value).toBe(72 + 81 * 2 + 66 * 2 + 64 + 58 + 45);
+  });
+
+  it("has a logo file for every university that declares one", () => {
+    for (const university of universities) {
+      if (university.logo) expect(existsSync(join(process.cwd(), "public", university.logo)), university.id).toBe(true);
+    }
   });
 
   it("links to https pages", () => {

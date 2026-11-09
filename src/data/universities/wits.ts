@@ -12,6 +12,7 @@ export const wits: University = {
   province: "Gauteng",
   city: "Johannesburg",
   badgeGradient: "from-sky-700 to-blue-500",
+  logo: "/logos/wits.png",
   website: "https://www.wits.ac.za",
   applyUrl: "https://www.wits.ac.za/applications/",
   applicationFee: 100,

@@ -104,6 +104,8 @@ export type University = {
   province: Province;
   city: string;
   badgeGradient: string;
+  /** Path under /public. Logos are the universities' trademarks, used only to identify them. */
+  logo?: string;
   website: string;
   applyUrl: string;
   applicationFee: number | null;

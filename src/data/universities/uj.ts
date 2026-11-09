@@ -11,6 +11,7 @@ export const uj: University = {
   province: "Gauteng",
   city: "Johannesburg",
   badgeGradient: "from-orange-500 to-amber-400",
+  logo: "/logos/uj.svg",
   website: "https://www.uj.ac.za",
   applyUrl: "https://www.uj.ac.za/Apply",
   applicationFee: 0,

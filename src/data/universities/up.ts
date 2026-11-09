@@ -10,6 +10,7 @@ export const up: University = {
   province: "Gauteng",
   city: "Pretoria",
   badgeGradient: "from-red-600 to-rose-400",
+  logo: "/logos/up.png",
   website: "https://www.up.ac.za",
   applyUrl: "https://www.up.ac.za/online-application",
   applicationFee: 300,

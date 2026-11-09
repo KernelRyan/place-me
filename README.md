@@ -133,4 +133,4 @@ Only use official university sources, and update `lastVerified` whenever you che
 
 ## Disclaimer
 
-PlaceMe isn't affiliated with any university. University names are used only to identify their programmes, and the badges are simple coloured initials, not official logos. Admission decisions are made solely by each institution.
+PlaceMe isn't affiliated with or endorsed by any university. University names, logos and crests are trademarks of their respective institutions and are used only to identify them. The logo files in `public/logos/` were taken from Wikimedia and cropped to the emblem. Admission decisions are made solely by each institution.

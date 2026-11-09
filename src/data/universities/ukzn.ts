@@ -12,6 +12,7 @@ export const ukzn: University = {
   province: "KwaZulu-Natal",
   city: "Durban",
   badgeGradient: "from-emerald-600 to-teal-400",
+  logo: "/logos/ukzn.svg",
   website: "https://ukzn.ac.za",
   applyUrl: "https://www.cao.ac.za",
   applicationFee: 250,

@@ -30,6 +30,7 @@ export const uct: University = {
   province: "Western Cape",
   city: "Cape Town",
   badgeGradient: "from-blue-600 to-cyan-400",
+  logo: "/logos/uct.svg",
   website: "https://www.uct.ac.za",
   applyUrl: "https://applyonline.uct.ac.za",
   applicationFee: 100,
