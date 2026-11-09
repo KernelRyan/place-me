@@ -53,13 +53,33 @@ a {
   animation: float 5s ease-in-out 1.2s infinite;
 }
 
+.colour-orb {
+  animation: drift 8s ease-in-out infinite;
+}
+
+.colour-orb-delayed {
+  animation: drift 9s ease-in-out 1.5s infinite reverse;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(8deg);
+  }
+  50% {
+    transform: translate3d(12px, -18px, 0) rotate(-6deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
   .floating-card,
-  .floating-card-delayed {
+  .floating-card-delayed,
+  .colour-orb,
+  .colour-orb-delayed {
     animation: none;
   }
 }

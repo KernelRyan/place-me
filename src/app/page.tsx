@@ -1,3 +1,6 @@
+"use client";
+
+import Link from "next/link";
 import {
   ArrowRight,
   BadgeCheck,
@@ -15,6 +18,28 @@ import {
   TrendingUp,
   WalletCards,
 } from "lucide-react";
+
+const fields = [
+  "Engineering & Technology",
+  "Business & Commerce",
+  "Health Sciences",
+  "Law",
+  "Education",
+  "Arts & Humanities",
+];
+
+const provinces = [
+  "Any province",
+  "Eastern Cape",
+  "Free State",
+  "Gauteng",
+  "KwaZulu-Natal",
+  "Limpopo",
+  "Mpumalanga",
+  "North West",
+  "Northern Cape",
+  "Western Cape",
+];
 
 const subjects = [
   { name: "Mathematics", mark: "76%" },
@@ -54,14 +79,14 @@ export default function Home() {
     <div className="min-h-screen overflow-hidden bg-[#fbfcff] text-slate-950">
       <header className="relative z-50 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl">
         <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
-          <a className="flex items-center gap-2.5" href="#">
+          <Link className="flex items-center gap-2.5" href="/">
             <span className="grid size-10 place-items-center rounded-xl bg-violet-600 text-white shadow-lg shadow-violet-200">
               <GraduationCap size={23} strokeWidth={2.2} />
             </span>
             <span className="text-xl font-extrabold tracking-tight">
               Place<span className="text-violet-600">Me</span>
             </span>
-          </a>
+          </Link>
 
           <div className="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex">
             <a className="transition hover:text-violet-600" href="#how-it-works">How it works</a>
@@ -70,8 +95,8 @@ export default function Home() {
           </div>
 
           <div className="hidden items-center gap-3 sm:flex">
-            <button className="rounded-xl px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-100">Sign in</button>
-            <button className="rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:-translate-y-0.5 hover:bg-violet-700">Get started</button>
+            <Link className="rounded-xl px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-100" href="/programmes">Browse programmes</Link>
+            <Link className="rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-violet-200 transition hover:-translate-y-0.5 hover:bg-violet-700" href="/match">Get started</Link>
           </div>
           <button className="grid size-10 place-items-center rounded-lg border border-slate-200 sm:hidden" aria-label="Open menu">
             <Menu size={20} />
@@ -85,6 +110,10 @@ export default function Home() {
             <div className="hero-grid absolute inset-0 opacity-50" />
             <div className="absolute -left-40 top-32 size-[28rem] rounded-full bg-violet-200/50 blur-3xl" />
             <div className="absolute -right-40 top-10 size-[32rem] rounded-full bg-sky-200/45 blur-3xl" />
+            <div className="absolute left-[38%] top-16 size-48 rounded-full bg-amber-200/35 blur-3xl" />
+            <div className="absolute bottom-8 right-[28%] size-56 rounded-full bg-fuchsia-200/30 blur-3xl" />
+            <div className="colour-orb absolute right-[8%] top-28 size-20 rounded-[2rem] bg-gradient-to-br from-amber-300 to-orange-400 opacity-70 shadow-2xl shadow-orange-200" />
+            <div className="colour-orb-delayed absolute bottom-24 left-[4%] size-14 rotate-12 rounded-2xl bg-gradient-to-br from-sky-400 to-cyan-300 opacity-60 shadow-xl shadow-sky-200" />
           </div>
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[1.02fr_.98fr] lg:py-28">
@@ -106,14 +135,14 @@ export default function Home() {
                 Find South African university programmes that match your results, interests and location—without the guesswork.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <button className="group flex h-14 items-center justify-center gap-2.5 rounded-xl bg-violet-600 px-7 text-base font-extrabold text-white shadow-xl shadow-violet-200 transition hover:-translate-y-0.5 hover:bg-violet-700">
+                <Link href="/match" className="group flex h-14 items-center justify-center gap-2.5 rounded-xl bg-violet-600 px-7 text-base font-extrabold text-white shadow-xl shadow-violet-200 transition hover:-translate-y-0.5 hover:bg-violet-700">
                   Find my matches
                   <ArrowRight size={19} className="transition group-hover:translate-x-1" />
-                </button>
-                <button className="flex h-14 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 text-base font-bold text-slate-700 shadow-sm transition hover:border-violet-200 hover:text-violet-700">
+                </Link>
+                <Link href="/programmes" className="flex h-14 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 text-base font-bold text-slate-700 shadow-sm transition hover:border-violet-200 hover:text-violet-700">
                   <Search size={18} />
                   Browse programmes
-                </button>
+                </Link>
               </div>
               <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-slate-500">
                 <span className="flex items-center gap-1.5"><Check size={16} className="text-emerald-500" /> Free to use</span>
@@ -136,7 +165,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="relative rounded-[2rem] border border-slate-200/80 bg-white p-5 shadow-[0_30px_80px_-20px_rgba(76,29,149,.22)] sm:p-7">
+              <form action="/match" className="relative rounded-[2rem] border border-slate-200/80 bg-white p-5 shadow-[0_30px_80px_-20px_rgba(76,29,149,.22)] sm:p-7">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
                     <p className="text-xs font-extrabold uppercase tracking-[.14em] text-violet-600">Quick match</p>
@@ -148,15 +177,21 @@ export default function Home() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block">
                     <span className="mb-2 block text-xs font-bold text-slate-600">I&apos;m interested in</span>
-                    <span className="flex h-12 items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-700">
-                      Engineering &amp; Tech <ChevronDown size={16} className="text-slate-400" />
+                    <span className="relative block">
+                      <select name="field" defaultValue="Engineering & Technology" className="h-12 w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 pr-9 text-sm font-semibold text-slate-700 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100">
+                        {fields.map((field) => <option key={field}>{field}</option>)}
+                      </select>
+                      <ChevronDown size={16} className="pointer-events-none absolute right-3 top-4 text-slate-400" />
                     </span>
                   </label>
                   <label className="block">
                     <span className="mb-2 block text-xs font-bold text-slate-600">Preferred province</span>
-                    <span className="flex h-12 items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-700">
-                      <span className="flex items-center gap-2"><MapPin size={15} className="text-violet-500" /> Gauteng</span>
-                      <ChevronDown size={16} className="text-slate-400" />
+                    <span className="relative block">
+                      <MapPin size={15} className="pointer-events-none absolute left-3 top-4 z-10 text-violet-500" />
+                      <select name="province" defaultValue="Gauteng" className="h-12 w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-9 text-sm font-semibold text-slate-700 outline-none transition focus:border-violet-400 focus:ring-4 focus:ring-violet-100">
+                        {provinces.map((province) => <option key={province}>{province}</option>)}
+                      </select>
+                      <ChevronDown size={16} className="pointer-events-none absolute right-3 top-4 text-slate-400" />
                     </span>
                   </label>
                 </div>
@@ -164,7 +199,7 @@ export default function Home() {
                 <div className="mt-5">
                   <div className="mb-3 flex items-center justify-between">
                     <span className="text-xs font-bold text-slate-600">Your latest marks</span>
-                    <span className="text-xs font-bold text-violet-600">Edit subjects</span>
+                    <Link href="/match" className="text-xs font-bold text-violet-600 hover:text-violet-800">Add all subjects</Link>
                   </div>
                   <div className="space-y-2">
                     {subjects.map((subject) => (
@@ -172,15 +207,23 @@ export default function Home() {
                         <span className="flex items-center gap-2.5 text-sm font-semibold text-slate-700">
                           <span className="size-2 rounded-full bg-violet-500" /> {subject.name}
                         </span>
-                        <span className="rounded-lg bg-slate-100 px-2.5 py-1 text-sm font-extrabold text-slate-700">{subject.mark}</span>
+                        <input
+                          aria-label={`${subject.name} mark`}
+                          className="w-16 rounded-lg border-0 bg-slate-100 px-2.5 py-1 text-right text-sm font-extrabold text-slate-700 outline-none focus:ring-2 focus:ring-violet-300"
+                          defaultValue={subject.mark.replace("%", "")}
+                          max="100"
+                          min="0"
+                          name={subject.name.toLowerCase().replaceAll(" ", "-")}
+                          type="number"
+                        />
                       </div>
                     ))}
                   </div>
                 </div>
-                <button className="mt-5 flex h-13 w-full items-center justify-center gap-2 rounded-xl bg-slate-950 text-sm font-extrabold text-white transition hover:bg-violet-700">
+                <button type="submit" className="mt-5 flex h-13 w-full items-center justify-center gap-2 rounded-xl bg-slate-950 text-sm font-extrabold text-white transition hover:bg-violet-700">
                   Show my university matches <ArrowRight size={17} />
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </section>
@@ -220,9 +263,9 @@ export default function Home() {
                 <p className="text-sm font-extrabold uppercase tracking-[.16em] text-violet-400">How it works</p>
                 <h2 className="mt-4 text-4xl font-black tracking-tight">From report card to the right course.</h2>
                 <p className="mt-5 leading-7 text-slate-400">No confusing prospectuses. No endless tabs. Just relevant options and clear next steps.</p>
-                <button className="mt-8 flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-slate-950 transition hover:bg-violet-100">
+                <Link href="/match" className="mt-8 flex w-fit items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-slate-950 transition hover:bg-violet-100">
                   Start matching <ArrowRight size={17} />
-                </button>
+                </Link>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
                 {[
@@ -245,7 +288,7 @@ export default function Home() {
 
       <footer id="resources" className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-5 py-7 text-sm text-slate-500 sm:flex-row sm:px-8">
-          <a className="flex items-center gap-2 font-black text-slate-900" href="#"><GraduationCap size={20} className="text-violet-600" /> PlaceMe</a>
+          <Link className="flex items-center gap-2 font-black text-slate-900" href="/"><GraduationCap size={20} className="text-violet-600" /> PlaceMe</Link>
           <p>Helping South African learners find where they belong.</p>
           <p>© 2026 PlaceMe</p>
         </div>
